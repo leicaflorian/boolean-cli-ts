@@ -1,0 +1,31 @@
+{
+  "name": "boolean-cli",
+  "private": false,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "bin": {
+    "boolean": "./bin/main.js"
+  },
+  "main": "./bin/main.js",
+  "scripts": {
+    "dev": "ts-node src/main.ts",
+    "watch": "tsc -w",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/node": "^18.11.8",
+    "rollup": "^3.2.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  },
+  "dependencies": {
+    "@types/inquirer": "^8.2.5",
+    "ansi-styles": "^6.2.1",
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "conf": "^10.2.0",
+    "inquirer": "^8.2.5",
+    "ts-node": "^10.9.1"
+  }
+}
