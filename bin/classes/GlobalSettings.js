@@ -9,8 +9,8 @@ const CliTable = require("cli-table");
 class GlobalSettings {
     static init(name) {
         this.config = new conf_1.default({
-            configName: name !== null && name !== void 0 ? name : 'boolean',
-            projectName: name !== null && name !== void 0 ? name : 'boolean',
+            configName: name !== null && name !== void 0 ? name : this.cliName,
+            projectName: name !== null && name !== void 0 ? name : this.cliName,
             schema: this.configSchema,
             migrations: this.configMigrations
         });
@@ -110,4 +110,5 @@ class GlobalSettings {
     }
 }
 exports.GlobalSettings = GlobalSettings;
+GlobalSettings.cliName = "boolean";
 //# sourceMappingURL=GlobalSettings.js.map

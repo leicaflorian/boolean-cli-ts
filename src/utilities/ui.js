@@ -1,13 +1,14 @@
 const chalk = require('chalk')
-const mainLogo = `
 
+const mainLogo = `
    ____              _                     ____ _     ___
   | __ )  ___   ___ | | ___  __ _ _ __    / ___| |   |_ _|
   |  _ \\ / _ \\ / _ \\| |/ _ \\/ _\` | '_ \\  | |   | |    | |
   | |_) | (_) | (_) | |  __/ (_| | | | | | |___| |___ | |
-  |____/ \\___/ \\___/|_|\\___|\\__,_|_| |_|  \\____|_____|___|  `
+  |____/ \\___/ \\___/|_|\\___|\\__,_|_| |_|  \\____|_____|___|
+  `
 
-module.exports.writeMainLogo = function () {
+export function writeMainLogo () {
   // clear()
   
   console.log(chalk.yellow(mainLogo))

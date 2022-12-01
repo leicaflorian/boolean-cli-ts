@@ -4,13 +4,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerCommands = void 0;
 const config_1 = require("./commands/config");
 const video_renamer_command_1 = require("./modules/video-renamer/video-renamer.command");
+const GlobalSettings_1 = require("./classes/GlobalSettings");
+const ui_1 = require("./utilities/ui");
 const { Command } = require('commander');
 const program = new Command();
 program
-    .name('boolean')
+    .name(GlobalSettings_1.GlobalSettings.cliName)
     .description('CLI for Boolean Careers tutors and teachers')
     .version('1.0.0');
 registerCommands(program);
+(0, ui_1.writeMainLogo)();
 program.parse(process.argv);
 function registerCommands(program) {
     // Register each command

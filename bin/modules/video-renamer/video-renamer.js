@@ -20,6 +20,7 @@ const chalk = require("chalk");
 const inquirer = require("inquirer");
 const DriveFiles_1 = require("../../classes/DriveFiles");
 const ModuleWithSettings_1 = require("../../classes/ModuleWithSettings");
+const GlobalSettings_1 = require("../../classes/GlobalSettings");
 class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
     constructor() {
         super();
@@ -70,7 +71,7 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
             if (mustUpload && !this.moduleSettings.driveFolder) {
                 return logs_1.default.error(chalk.red(`Cartella Google Drive non configurata.
       Per configurarla usa il comando:
-      ${chalk.yellow('boolean config video-rename --drive-folder [folder_path]')}`));
+      ${chalk.yellow(`${GlobalSettings_1.GlobalSettings.cliName} config video-rename --drive-folder [folder_path]`)}`));
             }
             const answers = yield this.promptRenameQuestions(videoFiles);
             const fileNames = this.prepareFileNames(videoFiles, answers);

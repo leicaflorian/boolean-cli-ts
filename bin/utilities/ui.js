@@ -1,16 +1,19 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.writeMainLogo = void 0;
 const chalk = require('chalk');
 const mainLogo = `
-
    ____              _                     ____ _     ___
   | __ )  ___   ___ | | ___  __ _ _ __    / ___| |   |_ _|
   |  _ \\ / _ \\ / _ \\| |/ _ \\/ _\` | '_ \\  | |   | |    | |
   | |_) | (_) | (_) | |  __/ (_| | | | | | |___| |___ | |
-  |____/ \\___/ \\___/|_|\\___|\\__,_|_| |_|  \\____|_____|___|  `;
-module.exports.writeMainLogo = function () {
+  |____/ \\___/ \\___/|_|\\___|\\__,_|_| |_|  \\____|_____|___|
+  `;
+function writeMainLogo() {
     // clear()
     console.log(chalk.yellow(mainLogo));
-};
+}
+exports.writeMainLogo = writeMainLogo;
 /**
  *
  * @param {string} section

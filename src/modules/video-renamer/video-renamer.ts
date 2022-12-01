@@ -9,6 +9,7 @@ import * as chalk from 'chalk'
 import * as inquirer from 'inquirer'
 import { DriveFiles } from '../../classes/DriveFiles'
 import { ModuleWithSettings } from '../../classes/ModuleWithSettings'
+import { GlobalSettings } from '../../classes/GlobalSettings'
 
 export interface VideoRenameSettings {
   driveFolder?: string;
@@ -97,7 +98,7 @@ export class VideoRenamer extends ModuleWithSettings<VideoRenameSettings> {
     if (mustUpload && !this.moduleSettings.driveFolder) {
       return logs.error(chalk.red(`Cartella Google Drive non configurata.
       Per configurarla usa il comando:
-      ${chalk.yellow('boolean config video-rename --drive-folder [folder_path]')}`)
+      ${chalk.yellow(`${GlobalSettings.cliName} config video-rename --drive-folder [folder_path]`)}`)
       )
     }
     

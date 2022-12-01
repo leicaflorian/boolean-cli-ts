@@ -7,11 +7,12 @@ import * as  CliTable from 'cli-table'
 
 export class GlobalSettings {
   static config: Conf
+  static cliName = "boolean"
   
   static init (name?: string) {
     this.config = new Conf({
-      configName: name ?? 'boolean',
-      projectName: name ?? 'boolean',
+      configName: name ?? this.cliName,
+      projectName: name ?? this.cliName,
       schema: this.configSchema,
       migrations: this.configMigrations
     })
