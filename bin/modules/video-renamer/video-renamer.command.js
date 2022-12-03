@@ -32,10 +32,9 @@ class VideoRenamerCommand extends BasicCommand_1.default {
     }
     action(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            // writeSection('RENAME')
             let dir = typeof options.dir === 'string' ? options.dir : undefined;
             if (options.revert) {
-                this.module.revert(dir);
+                this.module.revert(dir).then();
             }
             else {
                 yield this.module.rename(options.upload, dir);

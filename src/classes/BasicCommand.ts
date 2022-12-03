@@ -13,9 +13,9 @@ export default abstract class BasicCommand<Module> {
   /**
    * Handle the command action.
    *
-   * @param options
+   * @param args
    * @protected
    */
-  protected abstract action (options: any): void
+  protected abstract action (...args: any[]): void
   
 }

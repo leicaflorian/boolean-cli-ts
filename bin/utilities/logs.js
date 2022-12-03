@@ -8,7 +8,10 @@ function formatMessage(message, prefix) {
 exports.default = {
     info(message, prefix) {
         let prefixString = chalk.yellow(prefix ? prefix : '[INFO]');
-        console.info(prefixString, '-', formatMessage(message, prefix));
+        if (prefix === false) {
+            prefixString = ''.padStart(6, ' ');
+        }
+        console.info(prefixString, '-', formatMessage(message, prefixString));
     },
     log(message) {
         console.info(formatMessage(message, ''));
@@ -25,6 +28,12 @@ exports.default = {
     },
     warnNoFileFound(fileName) {
         console.warn(`   ![WARN]! ${fileName} not found!`);
+    },
+    logStarting(prefix) {
+        this.info(`Processing ${prefix}...`, `[${prefix.toUpperCase()}]`);
+    },
+    logFileCreated(file) {
+        this.info(`${chalk.cyan(file)} file created!`, false);
     }
 };
 //# sourceMappingURL=logs.js.map

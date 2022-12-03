@@ -5,6 +5,7 @@ import { ConfigCommand } from './commands/config'
 import { VideoRenamerCommand } from './modules/video-renamer/video-renamer.command'
 import { GlobalSettings } from './classes/GlobalSettings'
 import { writeMainLogo } from './utilities/ui'
+import { ScaffoldCommand } from './modules/scaffold/scaffold.command'
 
 const { Command } = require('commander')
 
@@ -24,5 +25,6 @@ program.parse(process.argv)
 export function registerCommands (program: CommandType) {
   // Register each command
   (new ConfigCommand()).register(program);
+  (new ScaffoldCommand()).register((program));
   (new VideoRenamerCommand()).register((program))
 }

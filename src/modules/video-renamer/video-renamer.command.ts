@@ -30,11 +30,10 @@ export class VideoRenamerCommand extends BasicCommand<VideoRenamer> {
   }
   
   protected async action (options: VideoRenamerCommandOptions) {
-    // writeSection('RENAME')
     let dir: string = typeof options.dir === 'string' ? options.dir : undefined
-  
+    
     if (options.revert) {
-      this.module.revert(dir)
+      this.module.revert(dir).then()
     } else {
       await this.module.rename(options.upload, dir)
     }

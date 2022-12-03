@@ -7,10 +7,14 @@ function formatMessage (message: string, prefix: string) {
 
 export default {
   
-  info (message: string, prefix?: string) {
+  info (message: string, prefix?: string | boolean) {
     let prefixString = chalk.yellow(prefix ? prefix : '[INFO]')
     
-    console.info(prefixString, '-', formatMessage(message, prefix))
+    if (prefix === false) {
+      prefixString = ''.padStart(6, ' ')
+    }
+    
+    console.info(prefixString, '-', formatMessage(message, prefixString))
   },
   
   log (message: string) {
@@ -33,5 +37,13 @@ export default {
   
   warnNoFileFound (fileName: string) {
     console.warn(`   ![WARN]! ${fileName} not found!`)
+  },
+  
+  logStarting (prefix: string) {
+    this.info(`Processing ${prefix}...`, `[${prefix.toUpperCase()}]`)
+  },
+  
+  logFileCreated (file: string) {
+    this.info(`${chalk.cyan(file)} file created!`, false)
   }
 }
