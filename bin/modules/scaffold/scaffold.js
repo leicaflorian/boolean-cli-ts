@@ -44,12 +44,15 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
      *
      * @param {string} fileName
      * @param {string} [dest]
+     * @param cdnLibraries
      */
-    css(fileName, dest = '') {
+    css(fileName, dest = '', cdnLibraries) {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('CSS');
             const cssFile = (0, fs_1.prepareFileName)(fileName, 'css', 'style');
-            const template = (0, fs_1.readTemplate)('style.css');
+            const template = (0, fs_1.readTemplate)('style.css', {
+                hasBS: !!(cdnLibraries === null || cdnLibraries === void 0 ? void 0 : cdnLibraries.find(lib => lib.name === 'bootstrap'))
+            });
             const result = yield (0, fs_1.writeToFile)(`css/${cssFile}`, template, dest);
             if (result) {
                 logs_1.default.logFileCreated(`css/${cssFile}`);
@@ -183,6 +186,13 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
                     type: 'string',
                     default: 'main',
                     when: (answers) => answers.filesToCreate.includes('js')
+                },
+                {
+                    name: 'readmeFileName',
+                    message: `Specify README file name:`,
+                    type: 'string',
+                    default: 'README',
+                    when: (answers) => answers.filesToCreate.includes('readme')
                 }
             ]);
         });
@@ -190,7 +200,10 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
     /**
      * Ask to initialize git repository
      */
-    askForInitialCommit() {
+    askForInitialCommit(dir) {
+        if (dir) {
+            shell.cd(dir);
+        }
         // if git command not available OR git already initialized, skip
         if (!shell.which('git') || shell.exec('git log --reverse', { silent: true }).code === 0) {
             return;

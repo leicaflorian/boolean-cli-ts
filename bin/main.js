@@ -7,6 +7,7 @@ const video_renamer_command_1 = require("./modules/video-renamer/video-renamer.c
 const GlobalSettings_1 = require("./classes/GlobalSettings");
 const ui_1 = require("./utilities/ui");
 const scaffold_command_1 = require("./modules/scaffold/scaffold.command");
+const repo_creator_command_1 = require("./modules/repo-creator/repo-creator.command");
 const { Command } = require('commander');
 const program = new Command();
 program
@@ -21,6 +22,7 @@ function registerCommands(program) {
     (new config_1.ConfigCommand()).register(program);
     (new scaffold_command_1.ScaffoldCommand()).register((program));
     (new video_renamer_command_1.VideoRenamerCommand()).register((program));
+    (new repo_creator_command_1.RepoCreatorCommand()).register((program));
 }
 exports.registerCommands = registerCommands;
 //# sourceMappingURL=main.js.map

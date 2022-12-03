@@ -61,7 +61,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
                 }, cdnLibraries);
             }
             if (options.css || options.all) {
-                yield this.module.css(typeof options.css === 'string' ? options.css : fileName, options.dir);
+                yield this.module.css(typeof options.css === 'string' ? options.css : fileName, options.dir, cdnLibraries);
             }
             if (options.js || options.all) {
                 // check if the questions has already been asked
@@ -77,7 +77,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
             if (options.readme || options.all) {
                 yield this.module.readme((typeof options.readme === 'string' ? options.readme : fileName), options.dir);
             }
-            this.module.askForInitialCommit();
+            this.module.askForInitialCommit(options.dir);
         });
     }
 }
