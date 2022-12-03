@@ -6,6 +6,7 @@ import { VideoRenamerCommand } from './modules/video-renamer/video-renamer.comma
 import { GlobalSettings } from './classes/GlobalSettings'
 import { writeMainLogo } from './utilities/ui'
 import { ScaffoldCommand } from './modules/scaffold/scaffold.command'
+import { RepoCreatorCommand } from './modules/repo-creator/repo-creator.command'
 
 const { Command } = require('commander')
 
@@ -26,5 +27,6 @@ export function registerCommands (program: CommandType) {
   // Register each command
   (new ConfigCommand()).register(program);
   (new ScaffoldCommand()).register((program));
-  (new VideoRenamerCommand()).register((program))
+  (new VideoRenamerCommand()).register((program));
+  (new RepoCreatorCommand()).register((program))
 }
