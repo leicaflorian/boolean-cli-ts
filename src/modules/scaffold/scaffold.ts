@@ -20,6 +20,7 @@ export interface ScaffoldWizardResult {
   htmlFileName?: string;
   cssFileName?: string;
   jsFileName?: string;
+  readmeFileName?: string;
 }
 
 export interface ScaffoldFileSettings {
@@ -82,12 +83,15 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
    *
    * @param {string} fileName
    * @param {string} [dest]
+   * @param cdnLibraries
    */
-  async css (fileName: string, dest: string = '') {
+  async css (fileName: string, dest: string = '', cdnLibraries?: ScaffoldCDNLibraries[]) {
     logs.logStarting('CSS')
     
     const cssFile = prepareFileName(fileName, 'css', 'style')
-    const template = readTemplate('style.css')
+    const template = readTemplate('style.css', {
+      hasBS: !!cdnLibraries?.find(lib => lib.name === 'bootstrap')
+    })
     
     const result = await writeToFile(`css/${cssFile}`, template, dest)
     
@@ -236,6 +240,13 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
         type: 'string',
         default: 'main',
         when: (answers: PartialWizardResult) => answers.filesToCreate.includes('js')
+      },
+      {
+        name: 'readmeFileName',
+        message: `Specify README file name:`,
+        type: 'string',
+        default: 'README',
+        when: (answers: PartialWizardResult) => answers.filesToCreate.includes('readme')
       }
     ])
   }
@@ -243,7 +254,11 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
   /**
    * Ask to initialize git repository
    */
-  askForInitialCommit () {
+  askForInitialCommit (dir?: string) {
+    if (dir) {
+      shell.cd(dir)
+    }
+    
     // if git command not available OR git already initialized, skip
     if (!shell.which('git') || shell.exec('git log --reverse', { silent: true }).code === 0) {
       return

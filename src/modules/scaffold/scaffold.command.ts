@@ -38,7 +38,7 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
       .action((...args) => this.action(args[0], args[1]))
   }
   
-  protected async action (fileName: string, options: ScaffoldCommandOptions) {
+  public async action (fileName: string, options: ScaffoldCommandOptions) {
     // console.log(fileName, options)
     logs.info(`Working in folder "${chalk.green(getWorkingFolderName(options.dir))}".\n`)
     
@@ -70,7 +70,7 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
     }
     
     if (options.css || options.all) {
-      await this.module.css(typeof options.css === 'string' ? options.css : fileName, options.dir)
+      await this.module.css(typeof options.css === 'string' ? options.css : fileName, options.dir, cdnLibraries)
     }
     
     if (options.js || options.all) {
@@ -91,6 +91,6 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
       await this.module.readme((typeof options.readme === 'string' ? options.readme : fileName), options.dir)
     }
     
-    this.module.askForInitialCommit()
+    this.module.askForInitialCommit(options.dir)
   }
 }
