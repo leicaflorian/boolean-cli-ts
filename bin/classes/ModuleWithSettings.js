@@ -7,11 +7,6 @@ class ModuleWithSettings {
         this.settingsPrefix = '';
         this.settings = GlobalSettings_1.GlobalSettings.config;
     }
-    /**
-     *
-     * @param key
-     * @protected
-     */
     readSetting(key) {
         const selector = [key];
         if (this.settingsPrefix) {
@@ -19,13 +14,8 @@ class ModuleWithSettings {
         }
         return this.settings.get(selector.join('.'));
     }
-    /**
-     *
-     * @protected
-     */
     get moduleSettings() {
         return GlobalSettings_1.GlobalSettings.readAll(this.settingsPrefix);
     }
 }
 exports.ModuleWithSettings = ModuleWithSettings;
-//# sourceMappingURL=ModuleWithSettings.js.map

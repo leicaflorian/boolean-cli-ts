@@ -3,15 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DriveFiles = void 0;
 const fs_1 = require("../utilities/fs");
 class DriveFiles {
-    /**
-     *
-     * @param {string} file
-     * @return {{videoNum: number, videoPart: number, lessonNum: number, date: string, fileName: string}}
-     */
     static parseVideoFileName(file) {
         var _a;
-        // 4 blocks = video_num - date - lesson_num - file_name
-        // 3 blocks = video_num - date - file_name
         const blocks = file.split('-');
         const videoNum = {
             num: blocks[0].split('_')[0],
@@ -28,19 +21,12 @@ class DriveFiles {
             fileName
         };
     }
-    /**
-     * Get the last file uploaded to Google Drive folder
-     *
-     * @returns {string|null}
-     */
     static getLastRemoteFile(driveFolder) {
         let toReturn = null;
         if (!driveFolder) {
             return toReturn;
         }
-        // read video files from the remote folder
         const videoFiles = (0, fs_1.getFolderFiles)(driveFolder, '.mp4');
-        // get the last file
         if (videoFiles.length > 0) {
             toReturn = videoFiles[videoFiles.length - 1];
         }
@@ -60,7 +46,6 @@ class DriveFiles {
     }
     static getVideoPart(videoFiles, multipart, driveFolder) {
         let toReturn = videoFiles.length <= 1 || !multipart ? null : 1;
-        // if multipart options is false, avoid calculating the part
         if (!multipart) {
             return toReturn;
         }
@@ -73,4 +58,3 @@ class DriveFiles {
     }
 }
 exports.DriveFiles = DriveFiles;
-//# sourceMappingURL=DriveFiles.js.map

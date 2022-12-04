@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-ignore
 const chalk = require("chalk");
 function formatMessage(message, prefix) {
     return message.replace(/^\s{1,}/gm, ' '.repeat(prefix ? prefix.length + 3 : 0));
@@ -36,4 +35,3 @@ exports.default = {
         this.info(`${chalk.cyan(file)} file created!`, false);
     }
 };
-//# sourceMappingURL=logs.js.map

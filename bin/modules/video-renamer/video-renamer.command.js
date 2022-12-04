@@ -11,10 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VideoRenamerCommand = void 0;
 const BasicCommand_1 = require("../../classes/BasicCommand");
-// @ts-ignore
 const chalk = require("chalk");
 const video_renamer_1 = require("./video-renamer");
 const GlobalSettings_1 = require("../../classes/GlobalSettings");
+const ui_1 = require("../../utilities/ui");
 class VideoRenamerCommand extends BasicCommand_1.default {
     constructor() {
         super();
@@ -32,6 +32,7 @@ class VideoRenamerCommand extends BasicCommand_1.default {
     }
     action(options) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, ui_1.writeSection)('Video Renamer');
             let dir = typeof options.dir === 'string' ? options.dir : undefined;
             if (options.revert) {
                 this.module.revert(dir).then();
@@ -43,4 +44,3 @@ class VideoRenamerCommand extends BasicCommand_1.default {
     }
 }
 exports.VideoRenamerCommand = VideoRenamerCommand;
-//# sourceMappingURL=video-renamer.command.js.map

@@ -14,9 +14,7 @@ const fs_1 = require("../../utilities/fs");
 const logs_1 = require("../../utilities/logs");
 const fs = require("fs");
 const path = require("path");
-// @ts-ignore
 const chalk = require("chalk");
-// @ts-ignore
 const inquirer = require("inquirer");
 const DriveFiles_1 = require("../../classes/DriveFiles");
 const ModuleWithSettings_1 = require("../../classes/ModuleWithSettings");
@@ -35,7 +33,6 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
                 logs_1.default.error('Nothing to revert.');
                 return;
             }
-            // read the json file
             const jsonFile = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
             const confirmRename = yield inquirer.prompt([
                 {
@@ -63,7 +60,6 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
             const folder = dir !== null && dir !== void 0 ? dir : this.rootFolder;
             logs_1.default.info(`Searching for video files in folder "${chalk.green(folder)}".`);
             const videoFiles = (0, fs_1.getFolderFiles)(folder, '.mp4');
-            // check if the folder contains video files
             if (videoFiles.length === 0) {
                 return logs_1.default.error(`Can't find any "${chalk.yellow.bold('.mp4')}" file to rename.`);
             }
@@ -109,7 +105,6 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
                     default: DriveFiles_1.DriveFiles.getVideoNumber(this.moduleSettings.driveFolder),
                     validate: (input) => {
                         if (!input || Number.isNaN(+input)) {
-                            // Pass the return value in the done callback
                             return 'You need to provide a video number';
                         }
                         else {
@@ -140,7 +135,6 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
                     type: 'input',
                     validate: (input) => {
                         if (!input || !input.trim()) {
-                            // Pass the return value in the done callback
                             return 'E\' necessario assegnare un titolo alla lezione';
                         }
                         else {
@@ -197,4 +191,3 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
     }
 }
 exports.VideoRenamer = VideoRenamer;
-//# sourceMappingURL=video-renamer.js.map

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RepoCreatorCommand = void 0;
 const BasicCommand_1 = require("../../classes/BasicCommand");
 const repo_creator_1 = require("./repo-creator");
+const ui_1 = require("../../utilities/ui");
 class RepoCreatorCommand extends BasicCommand_1.default {
     constructor() {
         super();
@@ -31,6 +32,7 @@ class RepoCreatorCommand extends BasicCommand_1.default {
     }
     action(repoTitle, options) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, ui_1.writeSection)('Repo creator');
             let organization = options.org ? options.org.replace(/^=/, '') : null;
             if (options.delete) {
                 this.module.deleteRepo(repoTitle, organization);
@@ -39,14 +41,9 @@ class RepoCreatorCommand extends BasicCommand_1.default {
             this.module.checkGITCLI();
             this.module.checkGHCLI();
             const newRepo = this.module.createRepo(repoTitle, organization, options.public, options.existIgnore);
-            // clone repo
             this.module.cloneRepo(newRepo.folderName, newRepo.repoName);
-            // scaffold files
             this.module.createScaffolding(newRepo.folderName);
-            // change active directory
-            // this.module.changeActiveDirectory(newRepo.folderName)
         });
     }
 }
 exports.RepoCreatorCommand = RepoCreatorCommand;
-//# sourceMappingURL=repo-creator.command.js.map

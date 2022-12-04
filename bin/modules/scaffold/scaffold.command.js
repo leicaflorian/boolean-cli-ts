@@ -15,6 +15,7 @@ const scaffold_1 = require("./scaffold");
 const logs_1 = require("../../utilities/logs");
 const chalk = require("chalk");
 const fs_1 = require("../../utilities/fs");
+const ui_1 = require("../../utilities/ui");
 class ScaffoldCommand extends BasicCommand_1.default {
     constructor() {
         super();
@@ -37,20 +38,17 @@ class ScaffoldCommand extends BasicCommand_1.default {
     }
     action(fileName, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            // console.log(fileName, options)
+            (0, ui_1.writeSection)('Scaffold');
             logs_1.default.info(`Working in folder "${chalk.green((0, fs_1.getWorkingFolderName)(options.dir))}".\n`);
             const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img'];
-            // auto show the wizard if no options are provided
             if (!Object.keys(options).some(key => keysToAvoidForWizard.includes(key))) {
                 const wizardResult = yield this.module.showWizard();
-                // Store the wizard result in the options object
                 wizardResult.filesToCreate.forEach(file => {
                     options[file] = wizardResult[`${file}FileName`] || true;
                 });
             }
             let cdnLibraries;
             if (options.html || options.all) {
-                // get the list of third party libraries to add
                 cdnLibraries = yield this.module.askForCDNLibraries();
                 yield this.module.html(options.dir, {
                     fileName: typeof options.html === 'string' ? options.html : fileName,
@@ -64,9 +62,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
                 yield this.module.css(typeof options.css === 'string' ? options.css : fileName, options.dir, cdnLibraries);
             }
             if (options.js || options.all) {
-                // check if the questions has already been asked
                 if (!cdnLibraries) {
-                    // get the list of third party libraries to add
                     cdnLibraries = yield this.module.askForCDNLibraries({ mustInitInJS: true });
                 }
                 yield this.module.js((typeof options.js === 'string' ? options.js : fileName), cdnLibraries, options.dir);
@@ -82,4 +78,3 @@ class ScaffoldCommand extends BasicCommand_1.default {
     }
 }
 exports.ScaffoldCommand = ScaffoldCommand;
-//# sourceMappingURL=scaffold.command.js.map

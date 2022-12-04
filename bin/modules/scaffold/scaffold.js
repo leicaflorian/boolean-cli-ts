@@ -17,17 +17,9 @@ const ModuleWithSettings_1 = require("../../classes/ModuleWithSettings");
 const validators_1 = require("../../utilities/validators");
 const fs_1 = require("../../utilities/fs");
 class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
-    /**
-     * Create necessary files for html projects
-     *
-     * @param {string|null} dir
-     * @param {ScaffoldHTMLSettings} settings
-     * @param {ScaffoldCDNLibraries[]} cdnLibraries
-     */
     html(dir, settings, cdnLibraries) {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('HTML');
-            // options for the mustache template
             const mustacheOptions = Object.assign({ title: (0, fs_1.prepareTitle)(dir, settings.fileName), css: settings.withCss, cssFileName: (0, fs_1.prepareFileName)(settings.cssFileName, 'css', 'style'), js: settings.withJs, jsFileName: (0, fs_1.prepareFileName)(settings.jsFileName, 'js', 'main'), libraries: cdnLibraries !== null && cdnLibraries !== void 0 ? cdnLibraries : [] }, this.prepareTemplateCDNLibraries(cdnLibraries));
             const htmlFile = (0, fs_1.prepareFileName)(settings.fileName, 'html', 'index');
             const template = (0, fs_1.readTemplate)('index.html', mustacheOptions);
@@ -39,13 +31,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
-    /**
-     * Create necessary files for CSS
-     *
-     * @param {string} fileName
-     * @param {string} [dest]
-     * @param cdnLibraries
-     */
     css(fileName, dest = '', cdnLibraries) {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('CSS');
@@ -60,13 +45,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
-    /**
-     * Create necessary files for JS
-     *
-     * @param {string} fileName
-     * @param {ScaffoldCDNLibraries} cdnLibraries
-     * @param {string} [dest]
-     */
     js(fileName, cdnLibraries, dest = '') {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('JS');
@@ -79,10 +57,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
-    /**
-     * Copy default IMG files
-     * @param {string} [dest]
-     */
     img(dest = '') {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('IMG');
@@ -91,9 +65,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
-    /**
-     *
-     */
     addFavIcon(dir = '') {
         return __awaiter(this, void 0, void 0, function* () {
             const filePath = 'imgs/favicon.ico';
@@ -101,11 +72,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.logFileCreated(filePath);
         });
     }
-    /**
-     *
-     * @param fileName
-     * @param {string} [dest]
-     */
     readme(fileName, dest = '') {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.logStarting('README');
@@ -120,25 +86,11 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
-    /**
-     * Show a wizard for scaffolding a new project
-     *
-     * @return {Promise<ScaffoldWizardResult>}
-     */
     showWizard() {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.log(`Welcome to the HTML Scaffold Wizard!
     This wizard will help you create the basic scaffold for your project.\n`);
             return inquirer.prompt([
-                // currently not used
-                /*
-                {
-                  name: 'projectName',
-                  message: `Specify the project name:`,
-                  type: 'string',
-                  default: path.basename(path.resolve('.')),
-                  validate: stringValidator
-                },*/
                 {
                     name: 'filesToCreate',
                     message: `Choose which type of file you want to create:`,
@@ -197,14 +149,10 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             ]);
         });
     }
-    /**
-     * Ask to initialize git repository
-     */
     askForInitialCommit(dir) {
         if (dir) {
             shell.cd(dir);
         }
-        // if git command not available OR git already initialized, skip
         if (!shell.which('git') || shell.exec('git log --reverse', { silent: true }).code === 0) {
             return;
         }
@@ -225,9 +173,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             }
         });
     }
-    /**
-     * Ask user for CDN libraries to include
-     */
     askForCDNLibraries(filterBy) {
         return __awaiter(this, void 0, void 0, function* () {
             const choices = [
@@ -284,10 +229,6 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             return result.libraries;
         });
     }
-    /**
-     *
-     * @param libraries
-     */
     prepareTemplateCDNLibraries(libraries) {
         if (!libraries || !libraries.length) {
             libraries = [];
@@ -299,4 +240,3 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
     }
 }
 exports.Scaffold = Scaffold;
-//# sourceMappingURL=scaffold.js.map

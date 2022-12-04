@@ -18,9 +18,6 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
         }
         return chalk[color].bold(visibility);
     }
-    /**
-     * Check if GitHub CLI is installed
-     */
     checkGHCLI() {
         logs_1.default.info('Checking github-cli installation...');
         if (!shell.which('gh')) {
@@ -35,9 +32,6 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
   For more info, visit https://cli.github.com/manual/gh_auth_login`);
         }
     }
-    /**
-     * Check if Git CLI is installed
-     */
     checkGITCLI() {
         logs_1.default.info('Checking git-cli installation...');
         if (!shell.which('git')) {
@@ -79,7 +73,6 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
         const repoPath = path.resolve(projName);
         if (res.code === 0) {
             logs_1.default.info(`Repo cloned at ${chalk.green.bold(repoPath)}`);
-            // shell.cd(projName)
         }
         else {
             logs_1.default.error(`Error while cloning repo ${chalk.yellow.bold(repoName)}.
@@ -106,10 +99,8 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
             .catch((error) => {
             console.log(error);
             if (error.isTtyError) {
-                // Prompt couldn't be rendered in the current environment
             }
             else {
-                // Something else went wrong
             }
         });
     }
@@ -141,7 +132,6 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
                 if (deleteRes.code === 0) {
                     logs_1.default.info(`Repo ${chalk.yellow.bold(repoName)} deleted`);
                 }
-                // TODO:: would be nice to also ask if delete the local folder
             }
         });
     }
@@ -150,4 +140,3 @@ class RepoCreator extends ModuleWithSettings_1.ModuleWithSettings {
     }
 }
 exports.RepoCreator = RepoCreator;
-//# sourceMappingURL=repo-creator.js.map

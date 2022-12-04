@@ -15,7 +15,6 @@ class VideoRenamerConfigCommand {
             .action((options) => this.action(options));
     }
     action(options) {
-        // If no options are specified, show help
         if (Object.keys(options).length === 0) {
             this.command.help();
         }
@@ -28,11 +27,9 @@ class VideoRenamerConfigCommand {
             if (typeof options[key] === 'string') {
                 let value = options[key];
                 if (key === 'multipartFiles') {
-                    // convert to boolean
                     value = value === 'true';
                 }
                 result = GlobalSettings_1.GlobalSettings.assignKeyValue(prefix + '.' + key, value);
-                // if assigning the value to driveFolder, must check that the folder exists
                 if (key === 'driveFolder' && !fs.existsSync(result)) {
                     logs_1.default.error(`The folder "${chalk.red(result)}" does not exist.`);
                     GlobalSettings_1.GlobalSettings.assignKeyValue(prefix + '.' + key, '');
@@ -47,4 +44,3 @@ class VideoRenamerConfigCommand {
     }
 }
 exports.VideoRenamerConfigCommand = VideoRenamerConfigCommand;
-//# sourceMappingURL=video-renamer.config.command.js.map

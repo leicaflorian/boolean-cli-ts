@@ -4,7 +4,6 @@ exports.GlobalSettings = void 0;
 const conf_1 = require("conf");
 const inquirer = require("inquirer");
 const logs_1 = require("../utilities/logs");
-// @ts-ignore
 const CliTable = require("cli-table");
 class GlobalSettings {
     static init(name) {
@@ -36,21 +35,7 @@ class GlobalSettings {
         };
     }
     static get configMigrations() {
-        return {
-        /*'0.0.1': store => {
-          store.set('debugPhase', true)
-        },
-        '1.0.0': store => {
-          store.delete('debugPhase')
-          store.set('phase', '1.0.0')
-        },
-        '1.0.2': store => {
-          store.set('phase', '1.0.2')
-        },
-        '>=2.0.0': store => {
-          store.set('phase', '>=2.0.0')
-        }*/
-        };
+        return {};
     }
     static readKeyValue(key) {
         return this.config.get(key);
@@ -62,8 +47,7 @@ class GlobalSettings {
     static readAll(keyToSearchFor) {
         let toReturn = {};
         Object.keys(this.configSchema).forEach(key => {
-            let value = this.config.get(key);
-            toReturn[key] = value;
+            toReturn[key] = this.config.get(key);
         });
         if (keyToSearchFor) {
             toReturn = toReturn[keyToSearchFor];
@@ -110,5 +94,4 @@ class GlobalSettings {
     }
 }
 exports.GlobalSettings = GlobalSettings;
-GlobalSettings.cliName = "boolean";
-//# sourceMappingURL=GlobalSettings.js.map
+GlobalSettings.cliName = 'boolean';

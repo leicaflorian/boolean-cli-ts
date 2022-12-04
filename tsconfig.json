@@ -10,7 +10,7 @@
       "es6",
       "dom"
     ],
-    "sourceMap": true,
+    "sourceMap": false,
     "allowJs": true,
     "strict": true,
     "resolveJsonModule": true,
@@ -24,7 +24,8 @@
     "noUnusedParameters": true,
     "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "removeComments": true
   },
   "exclude": [
     "node_modules",

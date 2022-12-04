@@ -13,19 +13,10 @@ exports.writeToFile = exports.copyFolderFromTemplates = exports.copyFromTemplate
 const path = require("path");
 const fs = require("fs");
 const fsExtra = require("fs-extra");
-// @ts-ignore
 const Mustache = require("mustache");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const lodash_1 = require("lodash");
-/**
- * Reaad a template and render it with mustache syntax and data
- *
- * @param {string} file
- * @param {{}} data
- *
- * @return {string}
- */
 function readTemplate(file, data = {}) {
     const templatePath = path.resolve(__dirname, '../templates/' + file);
     let tmpl = fs.readFileSync(templatePath, 'utf-8');
@@ -35,11 +26,6 @@ function readTemplate(file, data = {}) {
     return tmpl;
 }
 exports.readTemplate = readTemplate;
-/**
- * Create a folder if this does not exist
- *
- * @param {string} folder
- */
 function makeFolder(folder) {
     if (!folder) {
         return;
@@ -50,12 +36,6 @@ function makeFolder(folder) {
     }
 }
 exports.makeFolder = makeFolder;
-/**
- *
- * @param {string} name
- * @param {string} extension
- * @param {string|null} defaultName
- */
 function prepareFileName(name, extension, defaultName = null, dir) {
     var _a;
     let fileName = (_a = name !== null && name !== void 0 ? name : defaultName) !== null && _a !== void 0 ? _a : '';
@@ -82,11 +62,6 @@ function getPath(...pathSections) {
     return path.resolve(...pathSections);
 }
 exports.getPath = getPath;
-/**
- * Get all files from a folder
- * @param {string} folder
- * @param {string} extension
- */
 function getFolderFiles(folder, extension = null) {
     return fs.readdirSync(folder).reduce((acc, file) => {
         const ext = path.extname(file);
@@ -105,7 +80,6 @@ function copyFromTemplates(from, to, destination = '') {
     return __awaiter(this, void 0, void 0, function* () {
         const fromPath = path.resolve(__dirname, '../templates/' + from);
         const destPath = path.resolve(destination, to);
-        // TODO:: log that the file was overwritten
         fsExtra.copySync(fromPath, destPath, {
             overwrite: yield askIfOverwrite(destPath)
         });
@@ -126,20 +100,11 @@ function copyFolderFromTemplates(from, to, destination = '') {
     });
 }
 exports.copyFolderFromTemplates = copyFolderFromTemplates;
-/**
- * Create and write content to a file while checking if the file already exists
- * If so, ask the user if he wants to overwrite it
- *
- * @param {string} fileName
- * @param {string} content
- * @param {string} [destination]
- */
 function writeToFile(fileName, content, destination = '') {
     return __awaiter(this, void 0, void 0, function* () {
         const destPath = path.resolve(destination, fileName);
         const eventuallyOverwrite = yield askIfOverwrite(destPath);
         if (eventuallyOverwrite) {
-            // TODO:: log that the file was overwritten
             fsExtra.outputFileSync(destPath, content);
             return true;
         }
@@ -162,4 +127,3 @@ function askIfOverwrite(destPath) {
         return true;
     });
 }
-//# sourceMappingURL=fs.js.map

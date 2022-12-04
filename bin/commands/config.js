@@ -18,7 +18,6 @@ class ConfigCommand {
         this.videoRenameCommands = new video_renamer_config_command_1.VideoRenamerConfigCommand(this.command);
     }
     action(options) {
-        // If no options are specified, show help
         if (Object.keys(options).length === 0) {
             return this.command.help();
         }
@@ -31,4 +30,3 @@ class ConfigCommand {
     }
 }
 exports.ConfigCommand = ConfigCommand;
-//# sourceMappingURL=config.js.map
