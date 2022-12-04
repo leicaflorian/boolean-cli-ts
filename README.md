@@ -5,6 +5,15 @@ This is a CLI for BooleanCareers Teachers and Tutors.
 Its purpose is to provide useful tools to use in their daily work and simplify repetitive tasks live renaming and
 uploading zoom video recordings, scaffolding new projects, create github repos and more.
 
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Commands](#Modules)
+    - [config](#config)
+    - [video-rename](#video-rename)
+    - [scaffold](#scaffold)
+    - [repo](#repo-creator)
+
 # Requirements
 
 - NodeJS
