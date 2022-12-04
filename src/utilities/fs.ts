@@ -1,9 +1,7 @@
 import * as path from 'path'
 import * as fs from 'fs'
 import * as fsExtra from 'fs-extra'
-// @ts-ignore
 import * as Mustache from 'mustache'
-
 import * as inquirer from 'inquirer'
 import * as chalk from 'chalk'
 import { startCase } from 'lodash'
@@ -45,12 +43,16 @@ function makeFolder (folder: string) {
 }
 
 /**
+ * Return a file name with extension
+ * and eventually a full path if "dir" argument is provided
  *
  * @param {string} name
  * @param {string} extension
  * @param {string|null} defaultName
+ * @param {string} [dir]
+ * @return {string}
  */
-function prepareFileName (name: string, extension: string, defaultName: string = null, dir?: string) {
+function prepareFileName (name: string, extension: string, defaultName: string = null, dir?: string): string {
   let fileName = name ?? defaultName ?? ''
   
   if (!fileName.endsWith('.' + extension)) {
@@ -64,7 +66,14 @@ function prepareFileName (name: string, extension: string, defaultName: string =
   return fileName
 }
 
-function prepareTitle (dest?: string, fileName?: string) {
+/**
+ * Based on a file name, return a formatted title
+ *
+ * @param {string} dest
+ * @param {string} fileName
+ * @return {string}
+ */
+function prepareTitle (dest?: string, fileName?: string): string {
   const toReturn = []
   const folderName = getWorkingFolderName(dest)
   
@@ -77,7 +86,12 @@ function prepareTitle (dest?: string, fileName?: string) {
   return toReturn.join(' | ')
 }
 
-function getPath (...pathSections: string[]) {
+/**
+ * Resolve a path and return the absolute path
+ * @param {string[]} pathSections
+ * @return {string}
+ */
+function getPath (...pathSections: string[]): string {
   return path.resolve(...pathSections)
 }
 
@@ -85,8 +99,9 @@ function getPath (...pathSections: string[]) {
  * Get all files from a folder
  * @param {string} folder
  * @param {string} extension
+ * @return {string[]}
  */
-function getFolderFiles (folder: string, extension: string = null) {
+function getFolderFiles (folder: string, extension: string = null): string[] {
   return fs.readdirSync(folder).reduce((acc, file) => {
     const ext = path.extname(file)
     
@@ -98,10 +113,22 @@ function getFolderFiles (folder: string, extension: string = null) {
   }, [])
 }
 
-function getWorkingFolderName (dir?: string) {
+/**
+ * Get the name of the folder where the command was executed
+ * If a dir is provided, returns it
+ * @param dir
+ * @return {string}
+ */
+function getWorkingFolderName (dir?: string): string {
   return dir ?? path.basename(process.cwd())
 }
 
+/**
+ * Copy a file from the templates folder to the destination
+ * @param {string} from - Origin file name
+ * @param {string} to - Destination file name
+ * @param {string} destination - Destination path
+ */
 async function copyFromTemplates (from: string, to: string, destination: string = '') {
   const fromPath = path.resolve(__dirname, '../templates/' + from)
   const destPath = path.resolve(destination, to)
@@ -112,7 +139,14 @@ async function copyFromTemplates (from: string, to: string, destination: string 
   })
 }
 
-async function copyFolderFromTemplates (from: string, to: string, destination: string = '') {
+/**
+ * Copy each file from a folder from templates folder to the destination
+ * @param {string} from - Origin folder name
+ * @param {string} to - Destination folder name
+ * @param {string} destination - Destination path
+ * @return {Promise<string[]>}
+ */
+async function copyFolderFromTemplates (from: string, to: string, destination: string = ''): Promise<string[]> {
   const fromPath = path.resolve(__dirname, '../templates/' + from)
   const filesList = fs.readdirSync(fromPath)
   
@@ -137,9 +171,12 @@ async function copyFolderFromTemplates (from: string, to: string, destination: s
  * @param {string} fileName
  * @param {string} content
  * @param {string} [destination]
+ * @return {Promise<void>}
  */
-async function writeToFile (fileName: string, content: string, destination = '') {
+async function writeToFile (fileName: string, content: string, destination = ''): Promise<boolean> {
   const destPath = path.resolve(destination, fileName)
+  
+  // if necessary ask user if he wants to overwrite the file
   const eventuallyOverwrite = await askIfOverwrite(destPath)
   
   if (eventuallyOverwrite) {
@@ -152,7 +189,13 @@ async function writeToFile (fileName: string, content: string, destination = '')
   }
 }
 
+/**
+ * Ask the user if he wants to overwrite a file
+ * @param {string} destPath - File path
+ * @return {Promise<boolean>}
+ */
 async function askIfOverwrite (destPath: string): Promise<boolean> {
+  // if the file already exists, ask the user if he wants to overwrite it
   if (fs.existsSync(destPath)) {
     const result = await inquirer.prompt({
       type: 'confirm',
@@ -163,6 +206,7 @@ async function askIfOverwrite (destPath: string): Promise<boolean> {
     return result.overwrite
   }
   
+  // if the file does not exist, return true
   return true
 }
 

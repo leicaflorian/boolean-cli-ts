@@ -1,6 +1,7 @@
 import BasicCommand from '../../classes/BasicCommand'
 import { RepoCreator } from './repo-creator'
 import { Command } from 'commander'
+import { writeSection } from '../../utilities/ui'
 
 export interface RepoCreatorCommandOptions {
   org?: string;
@@ -30,6 +31,8 @@ export class RepoCreatorCommand extends BasicCommand<RepoCreator> {
   }
   
   protected async action (repoTitle: string, options: RepoCreatorCommandOptions) {
+    writeSection('Repo creator')
+    
     let organization = options.org ? options.org.replace(/^=/, '') : null
     
     if (options.delete) {

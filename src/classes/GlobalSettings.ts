@@ -5,10 +5,18 @@ import { InquirerConfirmAnswer } from '../@types/InquirerConfirmAnswer'
 // @ts-ignore
 import * as  CliTable from 'cli-table'
 
+/**
+ * Global settings for the CLI
+ * Using a Static class for a "singleton" like pattern
+ */
 export class GlobalSettings {
   static config: Conf
-  static cliName = "boolean"
+  static cliName = 'boolean'
   
+  /**
+   * Initialize the config by setting the schema and migrations
+   * @param name
+   */
   static init (name?: string) {
     this.config = new Conf({
       configName: name ?? this.cliName,
@@ -18,8 +26,12 @@ export class GlobalSettings {
     })
   }
   
+  /**
+   * The schema for the config
+   */
   static get configSchema (): Schema<any> {
     return {
+      // TODO:: make each module section registered by its own module
       videoRename: {
         type: 'object',
         properties: {
@@ -39,6 +51,9 @@ export class GlobalSettings {
     }
   }
   
+  /**
+   * Migrations for the config
+   */
   static get configMigrations () {
     return {
       /*'0.0.1': store => {
@@ -57,23 +72,35 @@ export class GlobalSettings {
     }
   }
   
-  static readKeyValue (key: string) {
+  /**
+   * Read a key from the config
+   * @param {string} key
+   */
+  static readKeyValue (key: string): any {
     return this.config.get(key) as any
   }
   
-  static assignKeyValue (key: string, value: any) {
+  /**
+   * Write value to a key in the config
+   * @param {string} key
+   * @param {any} value
+   */
+  static assignKeyValue (key: string, value: any): any {
     this.config.set(key, value)
     
     return this.readKeyValue(key)
   }
   
+  /**
+   * Read all settings
+   * If a key is provided, it will only return the settings for that key
+   * @param {string} keyToSearchFor
+   */
   static readAll<T> (keyToSearchFor?: string): T {
     let toReturn = {}
     
     Object.keys(this.configSchema).forEach(key => {
-      let value = this.config.get(key) as any
-      
-      toReturn[key] = value
+      toReturn[key] = this.config.get(key) as any
     })
     
     if (keyToSearchFor) {
@@ -83,6 +110,9 @@ export class GlobalSettings {
     return toReturn as any
   }
   
+  /**
+   * Reset all settings after asking for confirmation
+   */
   static reset () {
     inquirer.prompt([
       {
@@ -100,6 +130,13 @@ export class GlobalSettings {
     })
   }
   
+  /**
+   * Read all settings and print them in console as a table
+   * If a key is provided, it will only return the settings for that key
+   * @param keyToSearchFor
+   *
+   * @see readKeyValue
+   */
   static readAllAndPrint (keyToSearchFor?: string) {
     let settings = GlobalSettings.readAll(keyToSearchFor)
     

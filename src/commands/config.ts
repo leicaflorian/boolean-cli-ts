@@ -33,6 +33,7 @@ export class ConfigCommand {
       .action((options: ConfigOptions) => this.action(options))
       .showHelpAfterError('(add --help for additional information)')
     
+    // each module has its own config command and registers it here
     this.videoRenameCommands = new VideoRenamerConfigCommand(this.command)
   }
   

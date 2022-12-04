@@ -4,6 +4,7 @@ import { Command } from 'commander'
 import * as chalk from 'chalk'
 import { VideoRenamer } from './video-renamer'
 import { GlobalSettings } from '../../classes/GlobalSettings'
+import { writeSection } from '../../utilities/ui'
 
 export interface VideoRenamerCommandOptions {
   revert?: boolean;
@@ -30,6 +31,8 @@ export class VideoRenamerCommand extends BasicCommand<VideoRenamer> {
   }
   
   protected async action (options: VideoRenamerCommandOptions) {
+    writeSection('Video Renamer')
+    
     let dir: string = typeof options.dir === 'string' ? options.dir : undefined
     
     if (options.revert) {

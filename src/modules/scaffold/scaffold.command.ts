@@ -4,6 +4,7 @@ import { Command } from 'commander'
 import logs from '../../utilities/logs'
 import * as chalk from 'chalk'
 import { getWorkingFolderName } from '../../utilities/fs'
+import { writeSection } from '../../utilities/ui'
 
 export interface ScaffoldCommandOptions {
   all?: boolean
@@ -40,6 +41,8 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
   
   public async action (fileName: string, options: ScaffoldCommandOptions) {
     // console.log(fileName, options)
+    writeSection('Scaffold')
+    
     logs.info(`Working in folder "${chalk.green(getWorkingFolderName(options.dir))}".\n`)
     
     const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img']

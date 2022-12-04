@@ -17,12 +17,19 @@ program
   .description('CLI for Boolean Careers tutors and teachers')
   .version('1.0.0')
 
+// Register all command modules
 registerCommands(program)
 
+// Write an ASCII logo
 writeMainLogo()
 
 program.parse(process.argv)
 
+/**
+ * Register all command modules
+ *
+ * @param {Command} program
+ */
 export function registerCommands (program: CommandType) {
   // Register each command
   (new ConfigCommand()).register(program);
