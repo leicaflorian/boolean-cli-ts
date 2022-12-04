@@ -8,7 +8,7 @@ uploading zoom video recordings, scaffolding new projects, create github repos a
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Commands](#Modules)
+- [Commands](#commands--modules)
     - [config](#config)
     - [video-rename](#video-rename)
     - [scaffold](#scaffold)
@@ -38,13 +38,13 @@ In a terminal, run `boolean` to see the available commands.
 boolean --help
 ```
 
-## Modules
+# Commands / Modules
 
-### Config
+## Config
 
 This module is used to configure the CLI. It allows you to set the default values for the other modules.
 
-#### Options
+### Options
 
 - `-a | --all` - Read all existing settings
 - `-r | --reset` - Reset and remove all existing settings
@@ -57,7 +57,7 @@ boolean config -a
 boolean config -r
 ```
 
-#### Commands
+### Commands
 
 - `video-rename [options]` - Settings for `video-rename` command
     - **Options**
@@ -83,13 +83,13 @@ boolean config video-rename --multipart-files true|false
 boolean config video-rename --multipart-files
 ```
 
-### Video Rename
+## Video Rename
 
 Tool for renaming zoom video recordings based on the Boolean Careers naming convention.
 It also allows you to upload the renamed videos to a Google Drive folder. For this feature you will first need to
 configure the CLI with the Google Drive folder path.
 
-#### Options
+### Options
 
 - `-u` or `--upload` - Upload the renamed videos to the configured folder
 - `-d <path>` or `--dir <path>` - Path to the folder where the process will look for the videos to rename
@@ -110,7 +110,7 @@ boolean video-rename -d <path> [-u]
 boolean video-rename [-d <path>] -r
 ```
 
-### Scaffold
+## Scaffold
 
 Tool for scaffolding new projects. It will create the specified files inside the specified folder.
 
@@ -129,7 +129,7 @@ Also allow to include third party libraries (prompted when creating an HTML file
 - Axios
 - Vue 3
 
-#### Options
+### Options
 
 - `-a | --all` - Create basic HTML, CSS, JS and README.md files
 - `-d | --dir <path>` - Path to the folder where the files will be created *(default: current folder)*
@@ -165,18 +165,18 @@ boolean scaffold -i [-d path/to/folder]
 boolean scaffold -r [filename] [-d path/to/folder]
 ```
 
-### Repo Creator
+## Repo Creator
 
 Tool for creating a new Github repository. It will create the repository, clone it, scaffold it and create an initial
 commit.
 
 Requires Git and the Github CLI to be installed.
 
-#### Arguments
+### Arguments
 
 - `repo_title` - Title of the repository *(required)*
 
-#### Options
+### Options
 
 - `-o | --org <org_name>` - Name of the organization where the repository will be created
 - `-d | --delete <repo-name>` - Delete the specified repository
