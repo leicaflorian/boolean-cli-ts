@@ -11,7 +11,7 @@ import * as  CliTable from 'cli-table'
  */
 export class GlobalSettings {
   static config: Conf
-  static cliName = 'boolean'
+  static cliName = 'boolean-cli'
   
   /**
    * Initialize the config by setting the schema and migrations

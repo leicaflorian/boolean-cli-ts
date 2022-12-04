@@ -27,7 +27,7 @@ class VideoRenamerCommand extends BasicCommand_1.default {
             chalk.yellow(`${GlobalSettings_1.GlobalSettings.cliName} config video-rename --drive-folder [folder_path]`))
             .option('-r, --revert', 'Revert the rename operation.')
             .option('-u, --upload', 'Upload renamed files to Google Drive folder, if this is configured.')
-            .option('-d, --dir [path]', 'Specify folder where to perform the action.')
+            .option('-d, --dir <path>', 'Specify folder where to perform the action.')
             .action((options) => this.action(options));
     }
     action(options) {

@@ -94,4 +94,4 @@ class GlobalSettings {
     }
 }
 exports.GlobalSettings = GlobalSettings;
-GlobalSettings.cliName = 'boolean';
+GlobalSettings.cliName = 'boolean-cli';
