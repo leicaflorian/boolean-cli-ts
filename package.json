@@ -30,8 +30,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^3.2.3",
     "ts-jest": "^29.0.3",
-    "typescript": "^4.6.4",
-    "vite": "^3.2.0"
+    "typescript": "^4.6.4"
   },
   "dependencies": {
     "@types/babel__core": "^7.1.20",
