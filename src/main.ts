@@ -7,15 +7,16 @@ import { GlobalSettings } from './classes/GlobalSettings'
 import { writeMainLogo } from './utilities/ui'
 import { ScaffoldCommand } from './modules/scaffold/scaffold.command'
 import { RepoCreatorCommand } from './modules/repo-creator/repo-creator.command'
+import { getVersion } from './utilities/fs'
 
 const { Command } = require('commander')
 
-const program: CommandType = new Command()
+const program: CommandType = new Command
 
 program
   .name(GlobalSettings.cliName)
   .description('CLI for Boolean Careers tutors and teachers')
-  .version('2.3.1')
+  .version(getVersion())
 
 // Register all command modules
 registerCommands(program)

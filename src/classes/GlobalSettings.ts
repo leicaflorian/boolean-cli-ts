@@ -5,6 +5,8 @@ import { InquirerConfirmAnswer } from '../@types/InquirerConfirmAnswer'
 // @ts-ignore
 import * as  CliTable from 'cli-table'
 
+// TODO:: fix settings reset when installing new version
+
 /**
  * Global settings for the CLI
  * Using a Static class for a "singleton" like pattern

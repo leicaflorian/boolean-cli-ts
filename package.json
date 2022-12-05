@@ -21,6 +21,7 @@
     "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rimraf bin/",
     "copy-files": "cp -R public/ bin",
+    "bump-version": "node ./bumpVersion.js",
     "test": "jest"
   },
   "devDependencies": {
