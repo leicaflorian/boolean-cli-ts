@@ -1,7 +1,7 @@
 {
   "name": "boolean-cli",
   "private": false,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "CLI for BooleanCareers Teachers and Tutors.",
   "author": "Leica Florian Robert",
   "type": "commonjs",

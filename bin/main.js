@@ -13,7 +13,7 @@ const program = new Command();
 program
     .name(GlobalSettings_1.GlobalSettings.cliName)
     .description('CLI for Boolean Careers tutors and teachers')
-    .version('2.3.0');
+    .version('2.3.1');
 registerCommands(program);
 (0, ui_1.writeMainLogo)();
 program.parse(process.argv);

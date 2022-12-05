@@ -15,7 +15,7 @@ const program: CommandType = new Command()
 program
   .name(GlobalSettings.cliName)
   .description('CLI for Boolean Careers tutors and teachers')
-  .version('2.3.0')
+  .version('2.3.1')
 
 // Register all command modules
 registerCommands(program)
