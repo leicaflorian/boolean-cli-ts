@@ -184,7 +184,7 @@ class VideoRenamer extends ModuleWithSettings_1.ModuleWithSettings {
         return newName.join('-') + '.mp4';
     }
     createInternalRenameDetails(filesToRename, folder) {
-        fs.writeFileSync(path.join(folder, '.rename.json'), JSON.stringify({
+        fs.writeFileSync(path.join(folder || '', '.rename.json'), JSON.stringify({
             date: new Date(),
             files: filesToRename
         }));

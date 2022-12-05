@@ -237,9 +237,7 @@ export class VideoRenamer extends ModuleWithSettings<VideoRenameSettings> {
   }
   
   private createInternalRenameDetails (filesToRename: VideoRenameFileNames[], folder: string) {
-    fs.writeFileSync(
-      path.join(folder, '.rename.json'),
-      JSON.stringify({
+    fs.writeFileSync(path.join(folder || '', '.rename.json'), JSON.stringify({
         date: new Date(),
         files: filesToRename
       })
