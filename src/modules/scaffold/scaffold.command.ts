@@ -14,6 +14,7 @@ export interface ScaffoldCommandOptions {
   readme?: boolean | string
   img?: boolean
   dir?: string
+  vueVite?: boolean
 }
 
 export class ScaffoldCommand extends BasicCommand<Scaffold> {
@@ -34,9 +35,10 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
       .option('-j, --js [fileName]', 'Basic JS (default: main.js)')
       .option('-i, --img', 'Basic Imgs')
       .option('-r, --readme [fileName]', 'Readme file')
+      .option('-vue, --vue-vite [fileName]', 'Create a Vue 3 project with Vite')
       .option('-d, --dir [path]', 'Specify folder where to perform the action.')
       .showHelpAfterError()
-      .action((...args) => this.action(args[0], args[1]))
+      .action((...args: any[]) => this.action(args[0], args[1]))
   }
   
   public async action (fileName: string, options: ScaffoldCommandOptions) {
@@ -45,7 +47,7 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
     
     logs.info(`Working in folder "${chalk.green(getWorkingFolderName(options.dir))}".\n`)
     
-    const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img']
+    const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img', 'vueVite']
     
     // auto show the wizard if no options are provided
     if (!Object.keys(options).some(key => keysToAvoidForWizard.includes(key))) {
@@ -58,6 +60,16 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
     }
     
     let cdnLibraries
+    
+    if (options.vueVite) {
+      const projectPath = await this.module.vueVite(fileName, options.dir)
+      
+      if (projectPath) {
+        this.module.askForInitialCommit(projectPath)
+      }
+      
+      return
+    }
     
     if (options.html || options.all) {
       // get the list of third party libraries to add

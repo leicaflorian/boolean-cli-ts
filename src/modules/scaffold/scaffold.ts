@@ -2,13 +2,13 @@ import * as inquirer from 'inquirer'
 import * as shell from 'shelljs'
 import logs from '../../utilities/logs'
 import { ModuleWithSettings } from '../../classes/ModuleWithSettings'
-import { choicesValidator } from '../../utilities/validators'
+import { choicesValidator, stringValidator } from '../../utilities/validators'
 import {
   readTemplate,
   prepareFileName,
   writeToFile,
   copyFromTemplates,
-  copyFolderFromTemplates, prepareTitle
+  copyFolderFromTemplates, prepareTitle, getPath, makeFolder
 } from '../../utilities/fs'
 
 export interface ScaffoldSettings {
@@ -172,6 +172,53 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
     logs.info('Completed!\n', false)
   }
   
+  async vueVite (projectName?: string, dest: string = ''): Promise<string | null> {
+    logs.info('Creating Vue Vite project...')
+    
+    if (!projectName) {
+      projectName = (await inquirer.prompt([
+        {
+          name: 'projectName',
+          type: 'input',
+          message: 'Specify the project name:',
+          validate: stringValidator
+        }
+      ])).projectName
+    }
+    
+    const path = makeFolder(getPath(dest, projectName))
+    
+    if (!path) {
+      logs.error('The project could not be created')
+      return null
+    }
+    
+    logs.info('Project created in: ' + path)
+    
+    shell.cd(path)
+    
+    logs.info('Scaffolding project...')
+    
+    // download original template
+    // const result = shell.exec(`npx degit https://github.com/vitejs/vite.git/packages/create-vite/template-vue .`)
+    
+    // download custom made template for boolean
+    const result = shell.exec(`npx degit https://github.com/leicaflorian/vite-vue-boolean-template.git .`, { silent: true })
+    
+    if (result.code === 0) {
+      logs.info('Project scaffolded')
+      
+      //TODO:: update package.json with project name and version
+    } else {
+      logs.error('The project could not be created.\n' + result.stderr)
+    }
+    
+    logs.info('Installing dependencies...')
+    shell.exec('npm install')
+    
+    return path
+  }
+  
   /**
    * Show a wizard for scaffolding a new project
    *
@@ -264,6 +311,8 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
       return
     }
     
+    // TODO:: check if git is already initialized otherwise ask to initialize
+    
     inquirer.prompt([
       {
         name: 'make_commit',
@@ -273,6 +322,7 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
       }
     ]).then(answers => {
       if (answers.make_commit) {
+        shell.exec('git init')
         shell.exec('git add .')
         shell.exec('git commit -m "Initial scaffolding"')
         

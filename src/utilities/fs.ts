@@ -30,16 +30,16 @@ function readTemplate (file: string, data = {}) {
  *
  * @param {string} folder
  */
-function makeFolder (folder: string) {
+function makeFolder (folder: string): void | string {
   if (!folder) {
     return
   }
   
-  const cssFolderPath = path.resolve(folder)
+  const folderPath = path.resolve(folder)
   
-  if (!fs.existsSync(cssFolderPath)) {
-    fs.mkdirSync(cssFolderPath)
-  }
+  fsExtra.ensureDirSync(folderPath)
+  
+  return folderPath
 }
 
 /**

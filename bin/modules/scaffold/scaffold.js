@@ -86,6 +86,39 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             logs_1.default.info('Completed!\n', false);
         });
     }
+    vueVite(projectName, dest = '') {
+        return __awaiter(this, void 0, void 0, function* () {
+            logs_1.default.info('Creating Vue Vite project...');
+            if (!projectName) {
+                projectName = (yield inquirer.prompt([
+                    {
+                        name: 'projectName',
+                        type: 'input',
+                        message: 'Specify the project name:',
+                        validate: validators_1.stringValidator
+                    }
+                ])).projectName;
+            }
+            const path = (0, fs_1.makeFolder)((0, fs_1.getPath)(dest, projectName));
+            if (!path) {
+                logs_1.default.error('The project could not be created');
+                return null;
+            }
+            logs_1.default.info('Project created in: ' + path);
+            shell.cd(path);
+            logs_1.default.info('Scaffolding project...');
+            const result = shell.exec(`npx degit https://github.com/leicaflorian/vite-vue-boolean-template.git .`, { silent: true });
+            if (result.code === 0) {
+                logs_1.default.info('Project scaffolded');
+            }
+            else {
+                logs_1.default.error('The project could not be created.\n' + result.stderr);
+            }
+            logs_1.default.info('Installing dependencies...');
+            shell.exec('npm install');
+            return path;
+        });
+    }
     showWizard() {
         return __awaiter(this, void 0, void 0, function* () {
             logs_1.default.log(`Welcome to the HTML Scaffold Wizard!
@@ -165,6 +198,7 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
             }
         ]).then(answers => {
             if (answers.make_commit) {
+                shell.exec('git init');
                 shell.exec('git add .');
                 shell.exec('git commit -m "Initial scaffolding"');
                 logs_1.default.info(`Commit creato.\n`);

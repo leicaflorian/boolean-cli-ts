@@ -17,10 +17,11 @@
   "homepage": "https://github.com/leicaflorian/boolean-cli-ts#readme",
   "scripts": {
     "dev": "ts-node src/main.ts",
-    "watch": "yarn clean && yarn copy-files && tsc -w",
-    "build": "yarn clean && tsc && yarn copy-files",
+    "watch": "yarn clean && yarn copy-files && yarn copy-version && tsc -w",
+    "build": "yarn clean && tsc && yarn copy-files && yarn copy-version",
     "clean": "rimraf bin/",
     "copy-files": "cp -R public/ bin",
+    "copy-version": "node copyVersion.js",
     "ver:patch": "node ./bumpVersion.js patch",
     "ver:minor": "node ./bumpVersion.js minor",
     "test": "jest"

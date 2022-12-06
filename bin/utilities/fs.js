@@ -30,10 +30,9 @@ function makeFolder(folder) {
     if (!folder) {
         return;
     }
-    const cssFolderPath = path.resolve(folder);
-    if (!fs.existsSync(cssFolderPath)) {
-        fs.mkdirSync(cssFolderPath);
-    }
+    const folderPath = path.resolve(folder);
+    fsExtra.ensureDirSync(folderPath);
+    return folderPath;
 }
 exports.makeFolder = makeFolder;
 function prepareFileName(name, extension, defaultName = null, dir) {

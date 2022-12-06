@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+const storeVersion = require('./copyVersion')
 
 const versionIncrement = process.argv[2]
 let newVersion
@@ -38,18 +39,3 @@ function incrementVersion () {
   }
 }
 
-function storeVersion () {
-  console.log('Storing version in bin/version.txt')
-  
-  newVersion = getCurrentVersion()
-  
-  fs.writeFileSync(path.resolve(__dirname, 'bin/version.txt'), newVersion)
-  
-  console.log('Version stored successfully!')
-}
-
-function getCurrentVersion () {
-  const fileContent = fs.readFileSync(path.resolve(__dirname, 'package.json'), 'utf8')
-  
-  return JSON.parse(fileContent).version
-}

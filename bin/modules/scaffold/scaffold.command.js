@@ -32,6 +32,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
             .option('-j, --js [fileName]', 'Basic JS (default: main.js)')
             .option('-i, --img', 'Basic Imgs')
             .option('-r, --readme [fileName]', 'Readme file')
+            .option('-vue, --vue-vite [fileName]', 'Create a Vue 3 project with Vite')
             .option('-d, --dir [path]', 'Specify folder where to perform the action.')
             .showHelpAfterError()
             .action((...args) => this.action(args[0], args[1]));
@@ -40,7 +41,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             (0, ui_1.writeSection)('Scaffold');
             logs_1.default.info(`Working in folder "${chalk.green((0, fs_1.getWorkingFolderName)(options.dir))}".\n`);
-            const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img'];
+            const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img', 'vueVite'];
             if (!Object.keys(options).some(key => keysToAvoidForWizard.includes(key))) {
                 const wizardResult = yield this.module.showWizard();
                 wizardResult.filesToCreate.forEach(file => {
@@ -48,6 +49,13 @@ class ScaffoldCommand extends BasicCommand_1.default {
                 });
             }
             let cdnLibraries;
+            if (options.vueVite) {
+                const projectPath = yield this.module.vueVite(fileName, options.dir);
+                if (projectPath) {
+                    this.module.askForInitialCommit(projectPath);
+                }
+                return;
+            }
             if (options.html || options.all) {
                 cdnLibraries = yield this.module.askForCDNLibraries();
                 yield this.module.html(options.dir, {
