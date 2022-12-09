@@ -1,0 +1,11 @@
+{
+  "github": {
+    "release": true
+  },
+  "hooks": {
+    "after:bump": "node ./release.hook.afterBump.js v${version} ./bin/version.txt",
+    "after:release": "node ./release.hook.afterRelease.js ${branchName} 'Release v${version}'"
+  },
+  "npm": {
+  }
+}

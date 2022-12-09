@@ -2,11 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/BB/vite" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/__mocks__/repo-creator" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/__mocks__/repo-creator/test" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/__mocks__/repo-creator/test3" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/__mocks__/repo-creator/test4" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/__mocks__/repo-creator/test5" vcs="Git" />
   </component>
 </project>
