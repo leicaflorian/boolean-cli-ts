@@ -1,6 +1,6 @@
 const shell = require('shelljs')
 
-const mergeToBranches = []
+const mergeToBranches = ["main"]
 const workingBranch = process.argv[2]
 const commitMessage = process.argv[3]
 
