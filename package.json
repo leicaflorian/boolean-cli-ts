@@ -23,7 +23,7 @@
     "copy-files": "cp -R public/ bin",
     "copy-version": "node copyVersion.js",
     "test": "jest",
-    "release": "release-it"
+    "release": "yarb build && release-it"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
