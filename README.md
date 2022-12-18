@@ -117,6 +117,7 @@ Tool for scaffolding new projects. It will create the specified files inside the
 Creatable files are:
 
 - HTML
+- PHP
 - CSS
 - JS
 - Images
@@ -134,6 +135,7 @@ Also allow to include third party libraries (prompted when creating an HTML file
 - `-a | --all` - Create basic HTML, CSS, JS and README.md files
 - `-d | --dir <path>` - Path to the folder where the files will be created *(default: current folder)*
 - `-h | --html [filename]` - Create basic HTML file *(default: index.html)*
+- `-p | --php [filename]` - Create basic PHP file *(default: index.php)*
 - `-c | --css [filename]` - Create basic CSS file *(default: css/style.css)*
 - `-j | --js [filename]` - Create basic JS file *(default: js/main.js)*
 - `-i | --img` - Create images folder with a logo and favicon
@@ -151,6 +153,9 @@ boolean scaffold -a [-d path/to/folder]
 
 # Create basic HTML file with the specified name or with default name
 boolean scaffold -h [filename] [-d path/to/folder]
+
+# Create basic PHP file with the specified name or with default name
+boolean scaffold -p [filename] [-d path/to/folder]
 
 # Create basic JS file with the specified name or with default name
 boolean scaffold -j [filename] [-d path/to/folder]

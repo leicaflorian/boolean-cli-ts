@@ -28,6 +28,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
             .usage('[file_name] [option] [value]')
             .option('-a, --all', 'Basic HTML, CSS and Imgs')
             .option('-h, --html [fileName]', 'Basic HTML (default: index.html)')
+            .option('-p, --php [fileName]', 'Basic PHP (default: index.php)')
             .option('-c, --css [fileName]', 'Basic CSS (default: style.css)')
             .option('-j, --js [fileName]', 'Basic JS (default: main.js)')
             .option('-i, --img', 'Basic Imgs')
@@ -41,7 +42,7 @@ class ScaffoldCommand extends BasicCommand_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             (0, ui_1.writeSection)('Scaffold');
             logs_1.default.info(`Working in folder "${chalk.green((0, fs_1.getWorkingFolderName)(options.dir))}".\n`);
-            const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img', 'vueVite'];
+            const keysToAvoidForWizard = ['all', 'html', 'php', 'css', 'js', 'readme', 'img', 'vueVite'];
             if (!Object.keys(options).some(key => keysToAvoidForWizard.includes(key))) {
                 const wizardResult = yield this.module.showWizard();
                 wizardResult.filesToCreate.forEach(file => {
@@ -56,14 +57,16 @@ class ScaffoldCommand extends BasicCommand_1.default {
                 }
                 return;
             }
-            if (options.html || options.all) {
+            if (options.html || options.php || options.all) {
                 cdnLibraries = yield this.module.askForCDNLibraries();
+                const extension = options.php ? 'php' : 'html';
                 yield this.module.html(options.dir, {
-                    fileName: typeof options.html === 'string' ? options.html : fileName,
+                    fileName: typeof options[extension] === 'string' ? options[extension] : fileName,
                     cssFileName: typeof options.css === 'string' ? options.css : fileName,
                     jsFileName: typeof options.js === 'string' ? options.js : fileName,
                     withCss: !!options.css || !!options.all,
-                    withJs: !!options.js || !!options.all
+                    withJs: !!options.js || !!options.all,
+                    isPhp: !!options.php
                 }, cdnLibraries);
             }
             if (options.css || options.all) {

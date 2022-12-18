@@ -19,10 +19,11 @@ const fs_1 = require("../../utilities/fs");
 class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
     html(dir, settings, cdnLibraries) {
         return __awaiter(this, void 0, void 0, function* () {
-            logs_1.default.logStarting('HTML');
+            const extension = settings.isPhp ? 'php' : 'html';
+            logs_1.default.logStarting(extension.toUpperCase());
             const mustacheOptions = Object.assign({ title: (0, fs_1.prepareTitle)(dir, settings.fileName), css: settings.withCss, cssFileName: (0, fs_1.prepareFileName)(settings.cssFileName, 'css', 'style'), js: settings.withJs, jsFileName: (0, fs_1.prepareFileName)(settings.jsFileName, 'js', 'main'), libraries: cdnLibraries !== null && cdnLibraries !== void 0 ? cdnLibraries : [] }, this.prepareTemplateCDNLibraries(cdnLibraries));
-            const htmlFile = (0, fs_1.prepareFileName)(settings.fileName, 'html', 'index');
-            const template = (0, fs_1.readTemplate)('index.html', mustacheOptions);
+            const htmlFile = (0, fs_1.prepareFileName)(settings.fileName, extension, 'index');
+            const template = (0, fs_1.readTemplate)(`index.${extension}`, mustacheOptions);
             const result = yield (0, fs_1.writeToFile)(htmlFile, template, dir);
             if (result) {
                 logs_1.default.logFileCreated(htmlFile);
@@ -133,6 +134,9 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
                             name: 'HTML',
                             value: 'html'
                         }, {
+                            name: 'PHP',
+                            value: 'php'
+                        }, {
                             name: 'CSS',
                             value: 'css'
                         }, {
@@ -157,6 +161,13 @@ class Scaffold extends ModuleWithSettings_1.ModuleWithSettings {
                     type: 'string',
                     default: 'index',
                     when: (answers) => answers.filesToCreate.includes('html')
+                },
+                {
+                    name: 'phpFileName',
+                    message: `Specify PHP file name:`,
+                    type: 'string',
+                    default: 'index',
+                    when: (answers) => answers.filesToCreate.includes('php')
                 },
                 {
                     name: 'cssFileName',

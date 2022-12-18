@@ -1,3 +1,7 @@
+<?php
+  // Your php code here
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -8,7 +12,7 @@
   <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
   <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
 
-  <title>Mocks Scaffold</title>
+  <title>Mocks Scaffold | Index</title>
 
   <!-- Third party libraries -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
@@ -16,13 +20,15 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+  <!-- Custom css -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div id="app">
   <main class="container pb-5">
-    <h1 class="my-5">Mocks Scaffold</h1>
+    <h1 class="my-5">Mocks Scaffold | Index</h1>
     <!-- your code -->
   </main>
 </div>

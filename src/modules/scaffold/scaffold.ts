@@ -18,6 +18,7 @@ export interface ScaffoldWizardResult {
   projectName: string;
   filesToCreate: string[];
   htmlFileName?: string;
+  phpFileName?: string;
   cssFileName?: string;
   jsFileName?: string;
   readmeFileName?: string;
@@ -32,6 +33,7 @@ export interface ScaffoldHTMLSettings extends ScaffoldFileSettings {
   jsFileName: string;
   withCss: boolean
   withJs: boolean;
+  isPhp?: boolean;
 }
 
 export interface ScaffoldCDNLibraries {
@@ -51,7 +53,9 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
    * @param {ScaffoldCDNLibraries[]} cdnLibraries
    */
   async html (dir: string | null, settings: ScaffoldHTMLSettings, cdnLibraries?: ScaffoldCDNLibraries[]): Promise<void> {
-    logs.logStarting('HTML')
+    const extension = settings.isPhp ? 'php' : 'html'
+    
+    logs.logStarting(extension.toUpperCase())
     
     // options for the mustache template
     const mustacheOptions: any = {
@@ -64,8 +68,8 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
       ...this.prepareTemplateCDNLibraries(cdnLibraries)
     }
     
-    const htmlFile = prepareFileName(settings.fileName, 'html', 'index')
-    const template = readTemplate('index.html', mustacheOptions)
+    const htmlFile = prepareFileName(settings.fileName, extension, 'index')
+    const template = readTemplate(`index.${extension}`, mustacheOptions)
     
     const result = await writeToFile(htmlFile, template, dir)
     
@@ -249,6 +253,9 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
             name: 'HTML',
             value: 'html'
           }, {
+            name: 'PHP',
+            value: 'php'
+          }, {
             name: 'CSS',
             value: 'css'
           }, {
@@ -273,6 +280,13 @@ export class Scaffold extends ModuleWithSettings<ScaffoldSettings> {
         type: 'string',
         default: 'index',
         when: (answers: PartialWizardResult) => answers.filesToCreate.includes('html')
+      },
+      {
+        name: 'phpFileName',
+        message: `Specify PHP file name:`,
+        type: 'string',
+        default: 'index',
+        when: (answers: PartialWizardResult) => answers.filesToCreate.includes('php')
       },
       {
         name: 'cssFileName',
