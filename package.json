@@ -21,9 +21,9 @@
     "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rimraf bin/",
     "copy-files": "cp -R public/ bin",
-    "copy-version": "node copyVersion.js",
+    "copy-version": "node ./release.hook.afterBump.js vXXX ./bin/version.txt",
     "test": "jest",
-    "release": "release-it"
+    "release": "yarn build && release-it"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",

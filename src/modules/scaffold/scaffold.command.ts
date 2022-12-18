@@ -9,6 +9,7 @@ import { writeSection } from '../../utilities/ui'
 export interface ScaffoldCommandOptions {
   all?: boolean
   html?: boolean | string
+  php?: boolean | string
   css?: boolean | string
   js?: boolean | string
   readme?: boolean | string
@@ -31,6 +32,7 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
       .usage('[file_name] [option] [value]')
       .option('-a, --all', 'Basic HTML, CSS and Imgs')
       .option('-h, --html [fileName]', 'Basic HTML (default: index.html)')
+      .option('-p, --php [fileName]', 'Basic PHP (default: index.php)')
       .option('-c, --css [fileName]', 'Basic CSS (default: style.css)')
       .option('-j, --js [fileName]', 'Basic JS (default: main.js)')
       .option('-i, --img', 'Basic Imgs')
@@ -47,7 +49,7 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
     
     logs.info(`Working in folder "${chalk.green(getWorkingFolderName(options.dir))}".\n`)
     
-    const keysToAvoidForWizard = ['all', 'html', 'css', 'js', 'readme', 'img', 'vueVite']
+    const keysToAvoidForWizard = ['all', 'html', 'php', 'css', 'js', 'readme', 'img', 'vueVite']
     
     // auto show the wizard if no options are provided
     if (!Object.keys(options).some(key => keysToAvoidForWizard.includes(key))) {
@@ -71,16 +73,19 @@ export class ScaffoldCommand extends BasicCommand<Scaffold> {
       return
     }
     
-    if (options.html || options.all) {
+    if (options.html || options.php || options.all) {
       // get the list of third party libraries to add
       cdnLibraries = await this.module.askForCDNLibraries()
       
+      const extension = options.php ? 'php' : 'html'
+      
       await this.module.html(options.dir, {
-        fileName: typeof options.html === 'string' ? options.html : fileName,
+        fileName: typeof options[extension] === 'string' ? options[extension] as string : fileName,
         cssFileName: typeof options.css === 'string' ? options.css : fileName,
         jsFileName: typeof options.js === 'string' ? options.js : fileName,
         withCss: !!options.css || !!options.all,
-        withJs: !!options.js || !!options.all
+        withJs: !!options.js || !!options.all,
+        isPhp: !!options.php
       }, cdnLibraries)
     }
     
