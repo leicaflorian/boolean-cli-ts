@@ -210,12 +210,6 @@ async function askIfOverwrite (destPath: string): Promise<boolean> {
   return true
 }
 
-function getVersion (): string {
-  const version = fs.readFileSync(path.resolve(__dirname, '../version.txt'), 'utf8')
-  
-  return version
-}
-
 export {
   readTemplate,
   makeFolder,
@@ -226,6 +220,5 @@ export {
   getWorkingFolderName,
   copyFromTemplates,
   copyFolderFromTemplates,
-  writeToFile,
-  getVersion
+  writeToFile
 }

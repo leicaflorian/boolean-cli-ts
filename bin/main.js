@@ -8,15 +8,16 @@ const GlobalSettings_1 = require("./classes/GlobalSettings");
 const ui_1 = require("./utilities/ui");
 const scaffold_command_1 = require("./modules/scaffold/scaffold.command");
 const repo_creator_command_1 = require("./modules/repo-creator/repo-creator.command");
-const fs_1 = require("./utilities/fs");
+const version_1 = require("./utilities/version");
 const { Command } = require('commander');
 const program = new Command;
 program
     .name(GlobalSettings_1.GlobalSettings.cliName)
-    .description('CLI for Boolean Careers tutors and teachers')
-    .version((0, fs_1.getVersion)());
+    .description('CLI for Boolean Careers tutors and teachers');
 registerCommands(program);
 (0, ui_1.writeMainLogo)();
+const version = (0, version_1.checkVersion)();
+program.version(version);
 program.parse(process.argv);
 function registerCommands(program) {
     (new config_1.ConfigCommand()).register(program);

@@ -11,14 +11,16 @@ export default {
    * @param {string} message
    * @param {string} [prefix] - Default: 'INFO'
    */
-  info (message: string, prefix?: string | boolean) {
-    let prefixString = chalk.yellow(prefix ? prefix : '[INFO]')
+  info (message: string, prefix?: string | boolean, color?: string) {
+    let rawPrefix = prefix ? prefix.toString() : '[INFO]'
     
     if (prefix === false) {
-      prefixString = ''.padStart(6, ' ')
+      rawPrefix = ''.padStart(6, ' ')
     }
     
-    console.info(prefixString, '-', formatMessage(message, prefixString))
+    let prefixString = chalk[color ?? 'yellow'](prefix ? prefix : '[INFO]')
+    
+    console.info(prefixString, '-', formatMessage(message, rawPrefix))
   },
   
   /**

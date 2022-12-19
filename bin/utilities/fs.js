@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVersion = exports.writeToFile = exports.copyFolderFromTemplates = exports.copyFromTemplates = exports.getWorkingFolderName = exports.getFolderFiles = exports.getPath = exports.prepareTitle = exports.prepareFileName = exports.makeFolder = exports.readTemplate = void 0;
+exports.writeToFile = exports.copyFolderFromTemplates = exports.copyFromTemplates = exports.getWorkingFolderName = exports.getFolderFiles = exports.getPath = exports.prepareTitle = exports.prepareFileName = exports.makeFolder = exports.readTemplate = void 0;
 const path = require("path");
 const fs = require("fs");
 const fsExtra = require("fs-extra");
@@ -126,8 +126,3 @@ function askIfOverwrite(destPath) {
         return true;
     });
 }
-function getVersion() {
-    const version = fs.readFileSync(path.resolve(__dirname, '../version.txt'), 'utf8');
-    return version;
-}
-exports.getVersion = getVersion;
