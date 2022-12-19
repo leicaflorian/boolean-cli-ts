@@ -5,12 +5,13 @@ function formatMessage(message, prefix) {
     return message.replace(/^\s{1,}/gm, ' '.repeat(prefix ? prefix.length + 3 : 0));
 }
 exports.default = {
-    info(message, prefix) {
-        let prefixString = chalk.yellow(prefix ? prefix : '[INFO]');
+    info(message, prefix, color) {
+        let rawPrefix = prefix ? prefix.toString() : '[INFO]';
         if (prefix === false) {
-            prefixString = ''.padStart(6, ' ');
+            rawPrefix = ''.padStart(6, ' ');
         }
-        console.info(prefixString, '-', formatMessage(message, prefixString));
+        let prefixString = chalk[color !== null && color !== void 0 ? color : 'yellow'](prefix ? prefix : '[INFO]');
+        console.info(prefixString, '-', formatMessage(message, rawPrefix));
     },
     log(message) {
         console.info(formatMessage(message, ''));
