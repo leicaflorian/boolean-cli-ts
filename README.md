@@ -32,10 +32,10 @@ npm install -g boolean-cli
 
 # Usage
 
-In a terminal, run `boolean` to see the available commands.
+In a terminal, run `boolean-cli` to see the available commands.
 
 ```bash
-boolean --help
+boolean-cli --help
 ```
 
 # Commands / Modules
@@ -51,10 +51,10 @@ This module is used to configure the CLI. It allows you to set the default value
 
 ```shell
 # Read all existing settings
-boolean config -a
+boolean-cli config -a
 
 # Reset and remove all existing settings
-boolean config -r
+boolean-cli config -r
 ```
 
 ### Commands
@@ -68,19 +68,19 @@ boolean config -r
 
 ```shell
 # Read all existing settings for video-rename command
-boolean config video-rename -s
+boolean-cli config video-rename -s
 
 # Set the drive folder path
-boolean config video-rename --drive-folder /path/to/folder
+boolean-cli config video-rename --drive-folder /path/to/folder
 
 # Read the configured drive folder path
-boolean config video-rename --drive-folder
+boolean-cli config video-rename --drive-folder
 
 # Set multipart files to true
-boolean config video-rename --multipart-files true|false
+boolean-cli config video-rename --multipart-files true|false
 
 # Read the configured multipart files value
-boolean config video-rename --multipart-files
+boolean-cli config video-rename --multipart-files
 ```
 
 ## Video Rename
@@ -97,17 +97,17 @@ configure the CLI with the Google Drive folder path.
 
 ```bash
 # Show help
-boolean video-rename --help
+boolean-cli video-rename --help
 
 # Start wizard for renaming all videos in the current folder
-boolean video-rename [-u]
+boolean-cli video-rename [-u]
 
 # Start wizard for renaming all videos in the specified folder
-boolean video-rename -d <path> [-u]
+boolean-cli video-rename -d <path> [-u]
 
 # Revert the last renaming operation. 
 # If a directory is specified, it will work in that directory.
-boolean video-rename [-d <path>] -r
+boolean-cli video-rename [-d <path>] -r
 ```
 
 ## Scaffold
@@ -143,31 +143,31 @@ Also allow to include third party libraries (prompted when creating an HTML file
 
 ```bash
 # Show help
-boolean scaffold --help
+boolean-cli scaffold --help
 
 # Start wizard for scaffolding a new project
-boolean scaffold [-d path/to/folder]
+boolean-cli scaffold [-d path/to/folder]
 
 # Create basic HTML, CSS, JS and README.md files
-boolean scaffold -a [-d path/to/folder]
+boolean-cli scaffold -a [-d path/to/folder]
 
 # Create basic HTML file with the specified name or with default name
-boolean scaffold -h [filename] [-d path/to/folder]
+boolean-cli scaffold -h [filename] [-d path/to/folder]
 
 # Create basic PHP file with the specified name or with default name
-boolean scaffold -p [filename] [-d path/to/folder]
+boolean-cli scaffold -p [filename] [-d path/to/folder]
 
 # Create basic JS file with the specified name or with default name
-boolean scaffold -j [filename] [-d path/to/folder]
+boolean-cli scaffold -j [filename] [-d path/to/folder]
 
 # Create basic CSS file with the specified name or with default name
-boolean scaffold -c [filename] [-d path/to/folder]
+boolean-cli scaffold -c [filename] [-d path/to/folder]
 
 # Create images folder with a logo and favicon
-boolean scaffold -i [-d path/to/folder]
+boolean-cli scaffold -i [-d path/to/folder]
 
 # Create a .md file with the specified name or with default name
-boolean scaffold -r [filename] [-d path/to/folder]
+boolean-cli scaffold -r [filename] [-d path/to/folder]
 ```
 
 ## Repo Creator
@@ -190,24 +190,24 @@ Requires Git and the Github CLI to be installed.
 
 ```bash
 # Show help
-boolean repo --help
+boolean-cli repo --help
 
 # Start wizard for creating a new repository
-boolean repo <repo_title> [-o org_name] [-p]
+boolean-cli repo <repo_title> [-o org_name] [-p]
 
 # Create a public repository
-boolean repo <repo_title> -p
+boolean-cli repo <repo_title> -p
 
 # Create a public repository in the specified organization
-boolean repo <repo_title> -o <org_name> -p
+boolean-cli repo <repo_title> -o <org_name> -p
 
 # Ignore it the repository already exists and continue with the process
-boolean repo <repo_title> -ei
+boolean -clirepo <repo_title> -ei
 
 # Delete the specified repository
-boolean repo <repo_name> -d 
+boolean-cli repo <repo_name> -d 
 
 # Delete the specified repository in the specified organization
-boolean repo <organization/repo_name> -d
-boolean repo <repo_name> -d -o <org_name>
+boolean-cli repo <organization/repo_name> -d
+boolean-cli repo <repo_name> -d -o <org_name>
 ```
